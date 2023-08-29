@@ -12,7 +12,14 @@ class MyModel:
         print("딕셔너리 형태로 입력해야 합니다.\n면적당보증금,면적당매매금,전세율,위도,경도,이자율을 \n5일치씩 입력해야 합니다")
 
     def input_data(self, data: Dict[str, List[float]]) -> np.ndarray:
+        columns = ['면적당보증금','면적당매매금','전세율','위도','경도','이자율']
+        df = pd.DataFrame(columns=columns)
+
         df = pd.DataFrame.from_dict(data, orient='columns')
+        for column in columns:
+            if column in data:
+                df[column] = data[column]
+
         pred = np.expand_dims(df.to_numpy(), axis=0)  # If you want to display the DataFrame
         return pred
 
